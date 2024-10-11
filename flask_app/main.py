@@ -44,7 +44,7 @@ def get_config():
 
 def is_login_disabled():
     config = get_config()
-    return config.getboolean('DEFAULT', 'disable_login', fallback=False)
+    return config.getboolean('DEFAULT', 'disable_login', fallback=True)
 
 
 @app.route('/')

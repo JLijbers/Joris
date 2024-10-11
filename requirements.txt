@@ -5,7 +5,7 @@ langchain-pinecone==0.1.2
 langchain-openai==0.1.17
 jira==3.8.0
 sqlalchemy==2.0.31
-pinecone-client[grpc]==5.0.0
+pinecone-client[grpc]
 langsmith==0.1.93
 gitpython==3.1.43
 flask==3.0.3
