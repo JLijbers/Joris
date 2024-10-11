@@ -1,0 +1,15 @@
+{
+  "name": "joris",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron --trace-warnings .",
+    "start-with-conda": "start_app.bat"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^31.2.1"
+  }
+}

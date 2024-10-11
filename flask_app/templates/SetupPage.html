@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body class="bg-gray-900 text-white h-screen flex items-center justify-center">
+    <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center">
+                <img src="/static/img/sliders.svg" alt="Setup Icon" class="block mx-auto" style="margin-right: 10px;" width="25">
+                <h1 class="text-2xl font-bold">Setup</h1>
+            </div>
+            <button onclick="window.location.href='/main'" class="text-gray-400 hover:text-gray-200">
+                <span class="text-2xl">&times;</span>
+            </button>
+        </div>
+
+        <!-- OpenAI API Key (Required) -->
+        <div class="mb-4">
+            <label for="openai-api-key" class="block text-sm font-medium text-gray-300">
+                OpenAI API Key <span class="text-red-500">*</span>
+            </label>
+            <input type="text" id="openai-api-key" required class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" placeholder="Enter your OpenAI API Key">
+        </div>
+
+        <!-- Pinecone API Key (Required) -->
+        <div class="mb-4">
+            <label for="pinecone-api-key" class="block text-sm font-medium text-gray-300">
+                Pinecone API Key <span class="text-red-500">*</span>
+            </label>
+            <input type="text" id="pinecone-api-key" required class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" placeholder="Enter your Pinecone API Key">
+        </div>
+
+
+        <!-- Jira Credentials -->
+        <div class="mb-4">
+            <label for="jira-base-url" class="block text-sm font-medium text-gray-300">Jira Base URL</label>
+            <input type="text" id="jira-base-url" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" placeholder="Enter your Jira Base URL">
+        </div>
+        <div class="mb-4">
+            <label for="jira-username" class="block text-sm font-medium text-gray-300">Jira Username</label>
+            <input type="text" id="jira-username" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" placeholder="Enter your Jira Username">
+        </div>
+        <div class="mb-4">
+            <label for="jira-token" class="block text-sm font-medium text-gray-300">Jira Token</label>
+            <input type="text" id="jira-token" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" placeholder="Enter your Jira Token">
+        </div>
+
+        <!-- Langchain Credentials -->
+        <div class="mb-4">
+            <label for="langchain-api-key" class="block text-sm font-medium text-gray-300">Langchain API Key</label>
+            <input type="text" id="langchain-api-key" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" placeholder="Enter your Langchain API Key">
+        </div>
+        <div class="mb-4">
+            <label for="langchain-project" class="block text-sm font-medium text-gray-300">Langchain Project Name</label>
+            <input type="text" id="langchain-project" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" placeholder="Enter your Langchain Project Name">
+        </div>
+
+        <!-- Save settings -->
+        <button onclick="saveSettings()" class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Done</button>
+    </div>
+<script>
+        // User-ID
+        var user_id = "{{ user_id }}";
+
+        // WebSocket logic
+        const socket = io();
+
+        function saveSettings() {
+            const openaiKey = document.getElementById('openai-api-key').value;
+            const pineconeKey = document.getElementById('pinecone-api-key').value;
+            const jiraBaseUrl = document.getElementById('jira-base-url').value;
+            const jiraUsername = document.getElementById('jira-username').value;
+            const jiraToken = document.getElementById('jira-token').value;
+            const langchainKey = document.getElementById('langchain-api-key').value;
+            const langchainProject = document.getElementById('langchain-project').value;
+
+            socket.emit('save_settings', {
+                openai_api_key: openaiKey,
+                pinecone_api_key: pineconeKey,
+                jira_base_url: jiraBaseUrl,
+                jira_username: jiraUsername,
+                jira_token: jiraToken,
+                langchain_api_key: langchainKey,
+                langchain_project: langchainProject
+            });
+        }
+
+        socket.on('settings_saved', function(data) {
+            alert(data.message + ' Redirecting to homepage...');
+            window.location.href = '/main'; // Replace with your homepage URL
+        });
+</script>
+</body>
+</html>

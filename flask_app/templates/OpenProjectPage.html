@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Project: {{ project_name }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="/static/js/open-project.js"></script>
+</head>
+<body data-user-id="{{ user_id }}" data-project-name="{{ project_name }}" class="bg-gray-900 text-white font-sans">
+    <div class="container mx-auto p-4">
+        <div class="flex justify-between items-center mb-4">
+            <div class="flex items-center">
+                <img src="/static/img/play.svg" alt="Open Project Icon" class="block mx-auto" style="margin-right: 10px;" width="25">
+                <h1 id="open-project-project_name" class="text-xl font-semibold">Open project: <span class="text-gray-300">{{ project_name }}</span></h1>
+            </div>
+            <button onclick="window.location.href='/main'" class="text-gray-400 hover:text-gray-200">
+                <span class="text-2xl">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="flex gap-4">
+        <div class="flex-1 bg-gray-800 p-4 rounded-lg">
+            <div style="display: flex; justify-content: space-between;">
+                <h2 class="font-bold mb-2">Backlog</h2>
+                <button id="jira-button" title='Import stories from Jira'>
+                    <img src="/static/img/jira-icon.svg" alt="Import stories from Jira" height="32" width="32">
+                </button>
+            </div>
+            <div id="backlog" class="space-y-2" style="cursor: grab;">
+                {% for story in user_stories %}
+                <div id="story{{ loop.index }}" class="bg-gray-700 p-2 rounded" data-jira-id="{{ story['jira_id'] }}" draggable="true">
+                    {{ story['text'] }}
+                </div>
+                {% endfor %}
+            </div>
+            <input type="text" id="newUserStory" class="bg-gray-700 p-2 rounded w-full"
+                   style="margin-top: 10px" placeholder="Enter a new user story">
+            <img id="trash-button" title='Delete user-stories' src="/static/img/trash.svg" alt="Delete" style="margin-top: 15px;" width="25">
+        </div>
+
+        <div id="draggable-container" class="w-16 h-16 bg-gray-700 rounded-lg flex items-center justify-center" style="cursor: not-allowed;">
+            <img src="/static/img/play.svg" alt="Play button" class="block mx-auto" width="40">
+        </div>
+
+        <div class="flex-1 bg-gray-800 p-4 rounded-lg">
+            <h2 class="font-bold mb-2">Running</h2>
+            <div id="running" class="bg-gray-700 p-2 rounded"></div>
+            <div id="pythonOutput"></div>
+
+            <!-- Git Feedback Buttons -->
+            <div id="gitFeedbackButtons" class="mt-4 space-x-2" style="display: none;">
+                <button id="commitChanges" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Commit Changes
+                </button>
+                <button id="discardChanges" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Discard Changes
+                </button>
+                <button id="waitForClean" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Wait for Clean Repository
+                </button>
+            </div>
+
+            <!-- User Story Feedback Input -->
+            <div id="userStoryRefinementFeedback" class="mt-4" style="display: none;">
+                <input type="text" id="feedbackInput" class="bg-gray-700 p-2 rounded w-full"
+                       placeholder="Your response">
+                <button id="sendFeedback" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Send Feedback
+                </button>
+            </div>
+
+            <!-- User Story Feedback Buttons -->
+            <div id="userStoryResultFeedback" class="mt-4 space-x-2" style="display: none;">
+                <button id="userstorySuccess" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Changes committed
+                </button>
+                <button id="userstoryManual" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Changes manually improved and committed
+                </button>
+                <button id="userstoryFailed" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Discarded changes
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

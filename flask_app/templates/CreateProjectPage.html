@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Project Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body class="bg-gray-900 text-white h-screen flex items-center justify-center">
+    <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center">
+                <img src="/static/img/folder-plus.svg" alt="Create Project Icon" class="block mx-auto" style="margin-right: 10px;" width="25">
+                <h1 class="text-2xl font-bold">Create Project</h1>
+            </div>
+            <button onclick="window.location.href='/main'" class="text-gray-400 hover:text-gray-200">
+                <span class="text-2xl">&times;</span>
+            </button>
+        </div>
+        <div class="mb-4">
+            <label for="application-name" class="block text-sm font-medium text-gray-300">Application name</label>
+            <input type="text" id="application-name" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" placeholder="Enter your application's name">
+        </div>
+        <div class="mb-4">
+            <label for="application-directory" class="block text-sm font-medium text-gray-300">Application directory</label>
+            <input type="text" id="application-directory" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" placeholder="Enter your application's directory">
+        </div>
+        <button onclick="createProject()" class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Done</button>
+    </div>
+<script>
+        // User-ID
+        var user_id = "{{ user_id }}";
+
+        // WebSocket logic
+        const socket = io();
+
+        function createProject() {
+            const applicationName = document.getElementById('application-name').value;
+            const applicationDirectory = document.getElementById('application-directory').value;
+
+            socket.emit('create_project', {
+                project_name: applicationName,
+                directory: applicationDirectory
+            });
+        }
+
+        socket.on('project_saved', function(data) {
+            alert(data.message + ' Redirecting to homepage...');
+            window.location.href = '/main'; // Replace with your homepage URL
+        });
+</script>
+</body>
+</html>

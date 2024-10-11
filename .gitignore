@@ -1,0 +1,36 @@
+# Project specific
+config.ini
+
+# Node modules
+node_modules/
+
+# Python
+*__pycache__
+*.pyc
+
+# Virtual environment
+venv/
+*.venv
+env/
+.env
+
+# Flask
+instance/
+.webassets-cache
+
+# Electron
+dist/
+build/
+
+# SQLite database files
+*.db
+*.sqlite
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log

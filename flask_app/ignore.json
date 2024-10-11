@@ -1,0 +1,14 @@
+{
+    "ignored_extensions": [
+        ".exe", ".out", ".app", ".o", ".obj", ".a", ".lib", ".dll",
+        ".class", ".tpl.c", ".tpl.go", ".gen.go", ".min.js", ".min.css",
+        ".gz", ".db", ".sqlite", ".json", ".xml", ".jpg", ".png", ".mp3", ".gif", ".svg",
+        ".wav", ".lock", ".key", ".crt", ".pem", ".env", ".gitignore", ".gitattributes",
+        ".gpte_consent", ".ini", ".pt", ".patch"
+    ],
+    "ignored_files": ["ignore.json", "__init__.py"],
+    "ignored_directories": [
+        "node_modules", "dist", "build", "__pycache__", ".git", ".vscode", ".idea",
+        ".gpteng", "venv", "empty_example_application", "migrations", "secrets", "weights"
+    ]
+}

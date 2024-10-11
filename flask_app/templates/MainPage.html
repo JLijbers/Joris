@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JORIS Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Additional styles if needed */
+    </style>
+</head>
+<body class="bg-gray-900 text-white h-screen flex items-center justify-center">
+    <div class="container mx-auto p-4">
+      <div class="flex flex-col items-center mb-6">
+          <img src="/static/img/logo.png" alt="JORIS AI Logo" class="w-24 h-24 mb-4">
+      </div>
+        <div class="grid grid-cols-3 gap-4">
+            <div class="p-4 bg-gray-800 rounded-lg flex flex-col items-center justify-center">
+                <div class="bg-gray-700 p-4 rounded-lg mb-2">
+                    <img id="setupImg" src="/static/img/sliders.svg" alt="Setup Icon" class="block mx-auto">
+                </div>
+                <button id="setupBtn" class="focus:outline-none">Setup</button>
+            </div>
+            <div class="p-4 bg-gray-800 rounded-lg flex flex-col items-center justify-center">
+                <div class="bg-gray-700 p-4 rounded-lg mb-2">
+                    <img id="createProjectImg" src="/static/img/folder-plus.svg" alt="Create Project Icon" class="block mx-auto">
+                </div>
+                <button id="createProjectBtn" class="focus:outline-none">Create project</button>
+            </div>
+            <div class="p-4 bg-gray-800 rounded-lg flex flex-col items-center justify-center relative">
+                <div class="bg-gray-700 p-4 rounded-lg mb-2">
+                    <img src="/static/img/play.svg" alt="Open Project Icon" class="block mx-auto">
+                </div>
+                <button id="openProjectBtn" class="focus:outline-none">Open project</button>
+                <div id="dropdown" class="hidden absolute top-full mt-2 right-0 bg-gray-700 rounded-lg shadow-lg py-2 w-48 z-10">
+                    <div class="flex flex-col">
+                        {% for project_name in project_names %}
+                            <a href="#" class="project-name-link px-4 py-2 text-white hover:bg-gray-600" data-project-name="{{ project_name }}">{{ project_name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('setupImg').addEventListener('click', function() {
+            window.location.href = '/setup';
+        });
+        document.getElementById('setupBtn').addEventListener('click', function() {
+            window.location.href = '/setup';
+        });
+        document.getElementById('createProjectImg').addEventListener('click', function() {
+            window.location.href = '/create-project';
+        });
+        document.getElementById('createProjectBtn').addEventListener('click', function() {
+            window.location.href = '/create-project';
+        });
+
+        // JavaScript to handle dropdown
+        const openProjectBtn = document.getElementById('openProjectBtn');
+        const dropdown = document.getElementById('dropdown');
+
+        openProjectBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            dropdown.classList.toggle('hidden'); // Toggle visibility of dropdown
+        });
+
+        // Event listener for project name links
+        dropdown.addEventListener('click', function(e) {
+            if (e.target && e.target.matches('.project-name-link')) {
+                e.preventDefault(); // Prevent the default anchor behavior
+                const projectName = e.target.getAttribute('data-project-name');
+                window.location.href = '/open-project?name=' + encodeURIComponent(projectName);
+            }
+        });
+
+        // Close dropdown if clicked outside
+        window.addEventListener('click', function(e){
+            if (!openProjectBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+langchain==0.2.10
+langchain-core==0.2.22
+langchain-community==0.2.9
+langchain-pinecone==0.1.2
+langchain-openai==0.1.17
+jira==3.8.0
+sqlalchemy==2.0.31
+pinecone-client[grpc]==5.0.0
+langsmith==0.1.93
+gitpython==3.1.43
+flask==3.0.3
+flask-socketio==5.3.6
+flask-cors==4.0.1

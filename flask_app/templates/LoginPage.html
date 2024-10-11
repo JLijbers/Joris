@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white h-screen flex items-center justify-center">
+    <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center">
+                <img src="/static/img/user.svg" alt="Login Icon" class="block mx-auto" style="margin-right: 10px;" width="25">
+                <h1 class="text-2xl font-bold">Login</h1>
+            </div>
+            <button onclick="window.location.href='/'" class="text-gray-400 hover:text-gray-200">
+                <span class="text-2xl">&times;</span>
+            </button>
+        </div>
+
+        <!-- Login Form -->
+        <form action="/login" method="POST" id="loginForm">
+            <div class="mb-4">
+                <label for="username" class="block text-sm font-medium text-gray-300">Username</label>
+                <input type="text" id="username" name="username" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" placeholder="Enter your username">
+            </div>
+            <div class="mb-4">
+                <label for="password" class="block text-sm font-medium text-gray-300">Password</label>
+                <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" placeholder="Enter your password">
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Login</button>
+        </form>
+
+        {% if error %}
+            <div id="error" class="mt-2 text-red-500">Invalid username or password. Please try again.</div>
+        {% endif %}
+    </div>
+</body>
+</html>
