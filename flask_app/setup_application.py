@@ -16,9 +16,9 @@ def handle_save_settings(json, socketio):
     config['DEFAULT'] = {
         'OPENAI_API_KEY': json['openai_api_key'],
         'PINECONE_API_KEY': json['pinecone_api_key'],
-        'JIRA_BASE_URL': json.get('jira_base_url', ''),
+        'JIRA_URL': json.get('jira_base_url', ''),
         'JIRA_USERNAME': json.get('jira_username', ''),
-        'JIRA_TOKEN': json.get('jira_token', ''),
+        'JIRA_PASSWORD': json.get('jira_token', ''),
         'LANGCHAIN_API_KEY': json.get('langchain_api_key', ''),
         'LANGCHAIN_PROJECT': json.get('langchain_project', '')
     }
